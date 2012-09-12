@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Tactics Slice and Contour test</title>
+	<script src="http://code.jquery.com/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript"><!--
+	
+	function draw_image(canv, url, pts) {
+		var img = new Image();
+		var context = canv.getContext('2d');
+		img.addEventListener('load',function() {
+			context.drawImage(img, 0, 0);
+			draw_contour(pts, context, '#f00');
+		}, false); // DON'T FORGET THE FALSE!!! Inscrutable error messages, ahoy...
+		img.src = url;
+	}
+	
+	function draw_contour(pts, context, color) {
+	// canv is the Canvas object to draw to
+	// pts is an array like so: [[x1,y1],[x2,y2],...];
+	
+		// set the stroke color and line width
+		context.fillStyle   = '#00f';
+		context.strokeStyle = color;
+		context.lineWidth   = 3; 
+	
+		// Draw a polygon
+		context.beginPath();
+	
+		for (var i = 0; i < pts.length; i++) {
+			el = pts[i];
+			x = el[0];
+			y = el[1];
+			context.lineTo(x,y);
+		}
+		
+		context.lineTo(pts[0][0], pts[0][1]);
+	
+		//close the path and stroke
+		context.stroke();
+		context.closePath();		
+  }
+	
+	$(document).ready(function () {
+
+		//get data via ruby lets just start with getting the values by row id (number)
+		var points = [];
+		var container=[];
+	<% 	
+	   @structure.contours.each do |contour| 
+		point_arr = []
+		points = contour.cont_data.split("\\") 
+		points.each_slice(3) do |i|  
+			x = i[0].to_f * -1.0 + 256.0
+			y = i[1].to_f * -1.0 + 256.0
+			point_arr << [x,y]
+		end
+	%>
+		//keep this line here or you get stack script over flow
+		container.push( {"id" : "<%= h contour.id %>", "url" : "<%= image_path('thumbs/' + @structure.contouring_session.template_study.id.to_s + '/CT.' + (h contour.ref_sop_instance_uid) + '.jpg' ) %>", "points" : <%= point_arr.to_json %>}  );
+	<% end %>
+
+		for (var i=0; i< container.length; i++){
+		var this_contour = container[i];
+        draw_image($('#img_' + this_contour['id'] + ' canvas')[0], this_contour['url'], this_contour['points'])
+		
+		}
+	
+	});
+	
+    // --></script>
+ </head>
+	<body><div><ul>
+	  <% @structure.contours.each do |contour| %>
+	 		<li id="img_<%= h contour.id %>">
+			<canvas width="512" height="512"></canvas>
+		</li>
+		
+   <% end %>
+		</ul><br/></div>
+   </body>
+</html>

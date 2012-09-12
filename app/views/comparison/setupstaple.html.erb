@@ -1,0 +1,110 @@
+<% content_for :custom_header do %>
+
+<script type="text/javascript" charset="utf-8">
+  $(document).ready(function() {
+    $('#compare_id').change(function(ev) {
+      $('#choose_contouring').submit();
+    });
+
+	$('#view_button').click(function() {
+             var n = $('input:checked')
+                    if(n.length==2) {
+              var struct1 =  n[0].id.split('_')[2];
+               var struct2 = n[1].id.split('_')[2];	
+     window.open('<%= url_for(:controller => :visualize_structure, :action => :index) %>?struct1=' + struct1 + '&struct2=' + struct2);
+
+}
+	});
+
+  });
+</script>
+
+<style type="text/css" media="screen">
+
+
+</style>
+
+<% end %>
+
+<div class="column">
+<h3>Setup comparison for file: <%= @c.rtstruct_file_name %></h3>
+<div>
+
+1. What file do you want to compare against?
+
+<p/>
+
+<div id="choose_contouring_session">
+  <label for="compare_id">Other users' contours from the same template:</label>
+  <% form_tag({:action => :setupstaple}, {:id => 'choose_contouring'}) do %>
+    <%= hidden_field_tag :id, @c.id %>
+    <select id="compare_id" name="compare_id">
+      <option value="">Select...</option>
+      <% @compare_against_list.each do |ag| %>
+        <% if @compare_against.nil? %>
+          <option value="<%= ag.id %>"><%= ag.rtstruct_file_name %> by <%= ag.user.login %> (<%= pluralize ag.structures.count, 'structure' %>)</option>
+        <% else %>
+          <option value="<%= ag.id %>" <%= ag.id == @compare_against.id ? 'selected="selected"' : '' %>><%= ag.rtstruct_file_name %> by <%= ag.user.login %></option>
+        <% end %>
+      <% end %>
+    </select>
+  <% end %>
+</div>
+<p/>
+
+2. Choose structures:
+
+<p/>
+
+<div id="choose_struct" style="">
+<% if @compare_against %>
+  <% form_tag({:action => :setupstaple}, {:id => 'choose_structures'}) do %>
+    <%= hidden_field_tag :id, @c.id %>
+    <%= hidden_field_tag :compare_id, @compare_against.id %>
+
+    <div style="float: left;">
+        Your Structures (<%= @c.structures.size %>)
+      <p/>
+      <% @c.structures.each do |s| %>
+        <%= radio_button_tag "struct_1", s.id, @struct_1 == s %>
+        <label for="struct_1_<%= s.id %>"><%= s.structure_name %></label><br/>
+      <% end %>
+    </div>
+  
+    <div style="float: left; margin-left: 2em;">
+        <%= @compare_against.user.login %>'s structures (<%= @compare_against.structures.size %>)
+      <p/>
+      	<% @compare_against.structures.each do |s| %>
+        <%= radio_button_tag "struct_2", s.id, @struct_2 == s %>
+        <label for="struct_2_<%= s.id %>"><%= s.structure_name %></label><br/>
+      <% end %>
+      <%= submit_tag "Calculate DICE" %>
+     <input id="view_button"  type="button" name="view" value="View"/>       
+
+    </div>
+    
+  <% end %>
+<% end %>
+</div>
+
+<% if @results.present? %>
+<div id="choose_metric" style="clear: both;">
+  3. Result (<em><%= @struct_1.structure_name %></em> vs <em><%= @struct_2.structure_name %></em>):<br/>
+
+	<% @results.each do |r| %>
+		<%= r.metric_type.name %>: <%= r.value %><br/>
+  		
+	<% end %>
+  <% if @fig_urls %>
+  <p>
+	<% @fig_urls.each do |f| %>
+  <img src="<%= f %>"/>
+	<% end %>
+  </p>
+  <% end %>
+</div>
+<% end %>
+
+<p/>
+
+</div></div>

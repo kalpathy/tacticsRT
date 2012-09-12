@@ -1,0 +1,39 @@
+<% content_for :custom_header do %>
+
+<style type="text/css" media="screen">
+  td, th { padding: .5em;}
+</style>
+
+<% end %>
+
+<div class="column">
+<h3>Hello, <%= h @u.login %></h3>
+<div>
+
+You've uploaded <%= pluralize @c.size, "file" %>.
+
+<table>
+  <tr>
+    <th>File Name</th>
+    <th>Template</th>
+    <th>Structures</th>
+	<th>Created at</th>
+    <th>&nbsp;</th>
+  </tr>
+  <% @c.each do |cs| %>
+  <tr>
+    <td><%= cs.rtstruct_file_name %></td>
+    <td><%= cs.template_study.name %></td>
+    <% if cs.ready? %>
+    <td><%= cs.structures.size %></td>
+	<td><%= cs.created_at %></td>
+    <td><%= link_to 'Compare', :action => :setupstaple, :id => cs.id %></td>
+    <% else %>
+    <td colspan="2">Still processing...</td>
+    
+    <% end %>
+  </tr>
+  <% end %>
+</table>
+
+</div></div>

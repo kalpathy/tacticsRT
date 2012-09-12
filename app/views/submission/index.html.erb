@@ -1,0 +1,26 @@
+<div class ="column">
+<h3>Please submit your RTSTRUCT file here:</h3>
+
+<div>
+<% if flash[:error] %>
+<span class="error"><%= flash[:error]%></span>
+<% end %>
+<% form_tag({:action =>:new}, { :multipart => true}) do %> 
+  <fieldset>
+	<dt> <label for="login" >Your login:</label></dt>
+  	<dd> <input class="text" id="login" size="60" type="text" name="login" value=""></dd>
+  	<dt> <label for="site" >What anatomical site are you uploading data for?</label></dt>  
+ 	<dd> <select name="site" class="text" id="site">
+	    	<option value="" SELECTED>please select one of the following.</option>
+			<%= options_from_collection_for_select(@tempStudies, 'id', 'name') %>
+	  		</select>
+	</dd>
+
+    <dt><label for="file">File to Upload</label> </dt>
+	<dd><%= file_field_tag "file" %></dd>
+    <dd><%= submit_tag "Upload" %></dd>
+</fieldset>
+  
+<% end %>
+
+</div></div>

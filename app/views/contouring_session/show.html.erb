@@ -1,0 +1,46 @@
+<html>
+	<head>
+		<title>Contouring Session Details for Session <%= h @cs.id %> (<%= h @cs.user.email %>)</title>
+
+		<style type="text/css">
+			ul.dcmdump {
+				list-style-type: disc;
+				text-indent: 1em;
+			}
+		</style>
+
+	</head>
+
+
+	<body>
+		<%
+		d = DICOM::DObject.new(@cs.rtstruct.path) 
+		%>
+
+		<h3>RT Struct Data:</h3>
+		User: <%= @cs.user.email %>
+		<p/>
+		
+		<% 
+			s = @cs.parsed_structures_and_contours 
+		%>
+		
+		Found <%= s.keys.size %> structures:
+		<ul>
+			<% s.each do |k,v| %>
+			<li><%= v['rt_description'] %> (Modality: <%= v['rt_modality'] %>, ROI num: <%= v['rt_roi_num'] %>, <%= v['contour_data'].size %> contour data elements)</li>
+			<% end %>
+		</ul>
+		<p/>
+		DCM children: <%= d.children.size %>
+
+		<p/>
+
+		<ul>
+			<% d.children.each do |c| %>
+			<%= print_children(c)%>
+			<% end %>
+		</ul>
+
+	</body>
+</html>

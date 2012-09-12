@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Tactics Slice and Contour test</title>
+	<script src="http://code.jquery.com/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript"><!--
+	
+	function draw_image(canv, url, sop) {
+		var img = new Image();
+		var context = canv.getContext('2d');
+
+		img.addEventListener('load',function() {
+			context.drawImage(img, 0, 0);
+			// images from dcm files have the origin in the center of the image rather than the upper-left corner
+			//read dicomrt for coordinates (changes from 256)
+		//	context.translate(256.0, 256.0); 
+			pts1 = struct1_sop_hash[sop];
+			if (pts1) {
+				// pts1 most of the time will be a one-element array, but in some cases (if there are multiple Contour Image Sequence objects (3006,0016) for the same SOP Instance UID), there might be multiple sets of points for this sop.
+				for (var i = 0; i < pts1.length; i++) {
+					draw_contour(pts1[i], context, '#f00'); //red
+				}
+			}
+			pts2 = struct2_sop_hash[sop];
+			if (pts2) {
+				for (var i = 0; i < pts2.length; i++) {
+					draw_contour(pts2[i], context, '#0f0'); //green
+				}
+			}
+		}, false); // DON'T FORGET THE FALSE!!! Inscrutable error messages, ahoy...
+		img.src = url;
+	}
+	
+	function draw_contour(pts, context, color) {
+	// canv is the Canvas object to draw to
+	// pts is an array like so: [[x1,y1],[x2,y2],...];
+	
+		// set the stroke color and line width
+		context.fillStyle   = '#00f';
+		context.strokeStyle = color;
+		context.lineWidth   = 1; 
+	
+		// Draw a polygon
+		context.beginPath();
+		
+		var old_x = pts[0][0];
+		var old_y = pts[0][1];
+		
+		var delta = 10.0;
+		
+		for (var i = 0; i < pts.length; i++) {
+			el = pts[i];
+			x = el[0];
+			y = el[1];
+			
+			dx = x - old_x
+			dy = y - old_y
+			dist = Math.sqrt((dx * dx) + (dy * dy));
+			
+			if (dist > delta) {
+				context.moveTo(x,y);
+			} else {
+				context.lineTo(x,y);
+			}
+			
+			old_x = x;
+			old_y = y;
+			
+//			context.lineTo(x,y);
+		}
+		
+	//	var scale = 0.8;
+	//	pts.multiply(scale);
+		context.lineTo(pts[0][0], pts[0][1]); 
+	
+		//close the path and stroke
+		context.stroke();
+		context.closePath();		
+  }
+		var struct1_sop_hash = <%= @struct1_sop_hash.to_json %>;
+		var struct2_sop_hash = <%= @struct2_sop_hash.to_json %>;
+
+	
+	$(document).ready(function () {
+
+		var container = [];
+
+		<% @all_sop_uid.each do |u| %>
+		container.push({'sop': "<%= h u %>", "url": "<%= image_path( 'thumbs/' + @structure1.contouring_session.template_study.id.to_s + '/CT.' + (h u) + '.jpg' ) %>"});
+		<% end %>
+
+		for (var i=0; i< container.length; i++){
+		var this_slice = container[i];
+	        draw_image($('#img_' + this_slice['sop'].replace(/\./g,'_') + ' canvas')[0], this_slice['url'], this_slice['sop'])
+		
+		}
+	
+	});
+	
+    // --></script>
+
+		<style type="text/css" media="screen">
+			div.metadata {
+				color: white;
+			}
+		</style>
+
+ </head>
+	<body style="background: #000; width: 600px;">
+	
+
+	<div style="margin: 0 0 0 10px;"><ul style="width:512px; height:512px; overflow:scroll;">
+			
+	  <% @all_sop_uid.each do |u| %>
+		<li id="img_<%= u.gsub('.','_') %>">
+			<div class="metadata">
+				Slice index: <%= h @sop_z_index_hash[u] %>
+				<%= @structure1.contouring_session.user.login.to_json %> -> red, <%= @structure2.contouring_session.user.login.to_json %> -> green
+				
+				
+				
+			</div>
+			<canvas width="512" height="512"></canvas>
+		</li>
+		
+   <% end %>
+		</ul><br/></div>
+   </body>
+</html>

@@ -1,0 +1,16 @@
+<div class="column">
+<h3>Enter your login:</h3>
+<div>
+
+<% form_tag(:action =>:choose) do %> 
+
+	<dt> <label for="login" >Your login:</label></dt>
+  	<dd> <input class="text" id="login" size="60" type="text" name="login" value=""></dd>
+
+    <%= submit_tag "Find Uploaded DICOM-RT Files" %>
+
+  
+<% end %>
+
+</div>
+</div>

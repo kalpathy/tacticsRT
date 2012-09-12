@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+<title>OHSU | Target Contour Testing/Instructional
+Computer Software (TaCTICS)</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<%=  stylesheet_link_tag "tactics" %>
+<%=  stylesheet_link_tag "menu1" %>
+<%=  stylesheet_link_tag "niceforms-default2" %>
+<script src="<%= javascript_path('niceforms.js') %>" type="text/javascript"></script>
+<script src="http://code.jquery.com/jquery-1.4.2.min.js" type="text/javascript"></script>
+
+</head>
+
+<body>
+<div id="main">
+
+		<div class="inside2">
+			<a href="#"><img src="<%= image_path('logo.png') %>" alt="" width="" height="" class="logo"/></a>																													
+			</div>
+	<p class="slogan2">Target Contour Testing/Instructional <br/>Computer Software (TaCTICS)</p>
+   
+	<div id="backgroundHolder">
+	<ul class="nav">
+                     <li class ="drop"> <%= link_to 'Home', {:controller => :content, :action => :index}, :class=>"main" %></li>
+				<li class ="drop"><%= link_to "Registration", {:controller => :registration, :action => :index}, :class=>"main" %></li>
+				<li class ="drop"><%= link_to 'Download Data', {:controller => :content, :action => :data}, :class=>"main" %></li>
+				<li class ="drop"><%= link_to 'Submission Site', {:controller => :submission, :action => :index}, :class=>"main" %></li>
+				<li class ="drop"><%= link_to 'Comparisons', {:controller => :comparison, :action => :index}, :class=>"main" %></li>
+				<li class ="drop"><%= link_to 'Publications', {:controller => :content, :action => :publications}, :class=>"main" %></li>
+			
+	
+	</ul>
+		
+     </div>
+   <div class="wrap">
+	 <div class="inside"> <%= yield %>
+	 
+		
+			
+
+               
+		    
+		   
+		</div><!-- end inside -->
+	   <div id="footer">
+	 
+		<%= link_to 'Home', :controller => :content, :action => :index %><span> | </span><%= link_to "Registration", :controller => :registration, :action => :index %><span> | </span>         
+<%= link_to 'Download Data', :controller => :content, :action => :data %><span>| </span><%= link_to 'Submission Site', :controller => :submission, :action => :index %><span>| </span> 
+<%= link_to 'Comparisons', :controller => :comparison, :action => :index %>
+<span> | </span><%= link_to 'Publications', :controller => :content, :action => :publications %>							
+	
+		<p>2010 Copyright &copy; OHSU Department of Medical Informatics & Clinical Epidemiology </p>
+		
+	 	</div><!--end footer -->
+    
+	 	
+	 </div><!-- end wrap -->
+	</div><!-- end main -->
+</body>
+</html>
+</html>

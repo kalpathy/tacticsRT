@@ -1,0 +1,57 @@
+<div class="column">
+<h3>New Users, please register here:</h3>
+
+<div id="mainTable" ><br />
+
+	<div class="myform">
+    <% form_tag({:action =>:new}) do %> 
+<fieldset>
+	<dl>
+	  <dt> <label for="login" >Login ID:*</label></dt>
+	  <dd> <input class="text" id="login" size="60" type="text" name="user[login]" value=""> </dd>
+		
+	  <dt> <label for="first_name" >First name:</label></dt>
+	  <dd> <input class="text" id="first_name" size="60" type="text" name="user[first_name]" value=""> </dd>
+	  <dt> <label for="last_name">Last (Family) name:</label></dt>
+	  <dd><input class="text" id="last_name" size="60" name="user[last_name]" value=""/></dd>
+	  <dt> <label for="organization" >Your organization:</label></dt>
+
+	  <dd> <input class="text" id="organization" size="60" type="text" name="user[organization]" value=""></dd>
+	  <dt> <label for="research_area" >Your primary area of research:</label></dt>
+	  <dd> <input class="text" id="research_area" size="60" type="text" name="user[research_area]" value=""></dd>
+	  <dt> <label for="how_learned" >How did you learn about TaCTICS?</label></dt>  <dd> <select name="user[how_learned]" class="text" id="how_learned">
+
+	    <option value="" SELECTED>please select one of the following.</option>
+
+	    <option value="rsna" >RSNA website</option>
+	    <option value="conference" >Conference</option>
+	    <option value="user" >Referred by colleague</option>
+	    <option value="search" >Search Engine</option>
+	    <option value="other" >Other</option>
+
+	</select> 
+	  
+	  <dt> <label for="website" >Your website (optional):</label></dt>
+
+	  <dd> <input class="text" id="website" size="60" type="text" name="user[website]" value=""></dd>
+	  <dt> <label for="email" >Your email address:*</label></dt>
+	  <dd> <input class="text" id="email" size="60" type="text" name="user[email]" value=""></dd>
+	
+	  <dt> <label for="password" >Your password:*</label></dt>
+	  <dd> <input class="text" id="password" size="60" type="text" name="user[password]" value=""></dd>
+	  <dt> <label for="r_password" >Please retype your password:*</label></dt>
+	  <dd> <input class="text" id="r_password" size="60" type="text" name="user[password_confirmation]" value=""></dd>
+	</dl>
+
+	</fieldset>
+ <fieldset>
+
+	<input type="submit" value="Register"><br>
+     </fieldset>
+
+
+	<% end %>
+
+</div>
+</div>
+</div>
