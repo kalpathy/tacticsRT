@@ -1,0 +1,84 @@
+*{ margin: 0; padding: 0; }*
+body { font: .8em Arial, Sans-Serif; line-height: 1.8em; background: #333; color: #444; }
+a {COLOR: #000000; text-decoration: none;}
+a:visited {COLOR: #660055; text-decoration: none;}
+a:hover {COLOR: #000; text-decoration: underline;}
+h2 { margin: 0 0 10px; padding: 10px 0 3px; }
+/*h3 { padding-left: 5px; color: #fff; background: #008080 ; font-size: 1em; height: 24px; line-height: 24px; }*/
+h3 { padding-left: 5px; color: #fff; background: #3366DD ; font-size: 1em; height: 24px; line-height: 24px; }
+ul {  padding: 0; margin: 0 0 10px;}
+li { list-style-type: none;}
+p { margin: 5px 0 10px 0; }
+img { border: none; }
+img.thumb{
+width: 5256px;
+height: 256px;
+      padding:1px;
+      border:.5px solid #BDBDBD;
+	outline:none;
+	display:block;
+
+}
+li.current {
+	
+	/*background: #FF9933 ;*/
+	background: #664444;
+	/*color: #FFFFFF;*/
+	color: #FFFFFF;
+}
+
+/*li.current a {color: #FFFFFF; font-weight: bold;}*/
+li.current a {color: #FFFFFF; font-weight: bold;}
+
+#header {
+background: url(../images/banner_lung.jpg) ;
+/*background: #20B2AA*/ ;
+height: 150px;
+/*width: 760px;*/
+/*border: 2px solid #FF9933*/;
+border: 2px solid #330066;
+}
+
+.current {
+	/*background: #008080; width = 150px;*/
+	background: #CCBB77; width = 150px;
+}
+
+#header h1 {
+/*color: #eee;*/
+font-size: 30px;
+font-weight: 100;
+letter-spacing: -1px;
+padding: 22px 0 5px 10px;
+}
+#header h1 a {
+color: #fff;
+text-decoration: none;
+}
+#header h1 a:hover {
+color: #000;
+text-decoration: none;
+}
+#header h2 {
+/*color: #eee;*/
+font-size: 19px;
+font-weight: 100;
+padding: 0 0 0 11px;
+letter-spacing: -1px;
+line-height: 12px;
+}
+
+/*#wrap { padding: 10px 10px 3px 10px; width: 760px; margin:20px auto; background: #fff;}*/
+#wrapper { padding: 10px 10px 3px 10px; width: 760px; margin:20px auto; background: #fff;}
+/* #left { float: left; width: 180px; background: #FFD8AF; margin-bottom: 10px; margin-top: 20px; border: 1px dotted #FF8B1E;}*/
+#leftpane { float: left; width: 140px; /*background: 	#ff9933;*/ color: #000000; margin-bottom: 10px; margin-top: 20px;}
+#left ul { padding: 5px 10px 10px 10px; margin: 0; }
+#maintext { margin-bottom: 10px; float: right; width: 550px; padding: 0 10px 10px 10px; margin-top: 10px;}
+
+#mainTable a:link{
+	color: blue;
+	text-decoration: underline;
+}
+#mainTable a:visited{
+	text-decoration: underline;
+}

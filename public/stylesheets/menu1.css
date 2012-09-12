@@ -1,0 +1,89 @@
+
+
+
+
+#backgroundHolder {
+margin:90px 0 0 30px;
+}
+
+
+.nav,
+.nav ul{list-style:none; margin:0; padding:0;}
+.nav a {text-decoration:none; color:#fff;}
+.nav {font-family: arial, sans-serif; font-size:12px; width:780px; margin:0 0 0 80px;}
+
+/* style the links */
+/* needs a background for IE6 - can be a color or a transparent gif */
+.nav a {background:url(../images/black.png); height:35px; line-height:35px; 
+-o-box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.9);
+-icab-box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.9);
+-khtml-box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.9);
+-moz-box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.9);
+-webkit-box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.9);
+-box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.9);
+}
+.nav .drop a {color:#fff;}
+.nav ul a {background:url(../images/blacksub.png); 
+height:30px; 
+line-height:30px; 
+margin-bottom:-1px; filter:alpha(opacity=80); opacity:0.8;
+} 
+.nav .fly .main {background: url(../images/blacksub-arrow.png);}
+.nav .down {background:url(../images/black-arrow.png);}
+.nav .right ul a {text-align:right; color:#fff;}
+.nav .right ul .main {background:url(../images/blacksub-arrow-left.png); text-align:right;}
+
+/* HEIGHT */
+.nav ul {top:-41px;}
+.nav ul ul {top:-58px;} /* position the top of the flyout sub menus */
+
+/* WIDTH change this WITH CARE to suit your requirements */
+
+/*set the link width here*/
+.nav .drop {width:130px;}
+.nav a {width:110px; padding:0 10px;}
+.nav ul li {max-width:130px;} /* fix for IE8 */
+
+/* set the left flyout position here */
+.nav ul ul {left:130px;}
+/* set the right flyout position here */
+.nav li.right ul ul {left:auto; right:130px;}
+
+/* make this WIDTH - 1px */ /* or WIDTH - 0.063em if using em sizing */
+.nav a {margin-right:-129px;}
+
+/* ----------------------------------------------------------------------------	*/
+
+/* DO NOT CHANGE ANYTHING BELOW */
+.nav li {float:left;} /* fixes IE related bugs, and allows for clearing */
+.nav ul {float:left; position:relative; z-index:20;} /* necessary for float drop and to stack the <ul>s */
+.nav ul li {clear:left;} /* must clear the floated list item inside sublist */
+.nav a {position:relative; display:block;} /* needs to have a position above the rest */
+.nav a.main {float:left; /* necessary for float drop */
+    margin-top:10000px;} /* bring the top level links back into view */
+.nav .drop,
+.nav .fly {margin-top:-10000px;} /* hide the sub links and their containers, opera has low upper limits */
+.nav ul {margin-bottom:-5000px;} /* avoid any interaction between the subs, can be any large size */
+
+/* The bit that does ALL the work to bring the sub menus into view */
+.nav a:hover,
+.nav a:focus,
+.nav a:active {margin-right:0; z-index:10; outline:0; background-position:left bottom; color:#0cf; text-decoration:none;}
+
+/* OPERA fix */
+.nav ul:hover,
+.nav ul ul:hover {clear:left;} /* to stop intermittent sub link :hover problems */
+
+/* IE6 and 7 fixes */
+.nav .fly {width:100%;}
+a:active {}
+
+/* ----------------------------------------------------------------------------	*/
+/* overlays for menu trail */
+.nav a.top {color:#0cf; background: url(../images/black-top.gif) no-repeat left top; text-align:left; height:41px; line-height:40px; filter: alpha(opacity=100); opacity:1;}
+
+.nav a.sub {color:#0cf; background: url(../images/blacksub-arrow.png) left bottom; position:relative; left:-130px; top:29px;}
+
+.nav .right a.top {text-align:left;}
+.nav .right a.sub {left:130px; background: url(../images/blacksub-arrow-left.png) left bottom; color:#0cf;}
+
