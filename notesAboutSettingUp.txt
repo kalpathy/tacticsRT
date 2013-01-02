@@ -1,0 +1,43 @@
+Step 0. Generate nii.gz of dcm files.(using Slicer or dcm2nii or mriconvert) Verify using ITK-SNAP
+
+Step 1. Add Template study:
+RAILS_ENV='production' ruby script/console
+
+ts = TemplateStudy.new(:name => 'headNeck1', :nii => File.open('/Users/jayashreekalpathy/Documents/tactics/webapp/tactics/public/headNeck1.nii.gz', 'rb'))
+ts.save
+TemplateStudy.find(:all).size
+
+Also need pixel spacing, origin and slice thickness
+
+irb
+require 'dicom'
+obj = DICOM::DObject.new('IM-0001-0118.dcm');
+orig = obj.value("0020,0032")
+pix=obj.value("0028,0030")
+
+
+Create jpgs into thumbs directory
+batch_convert_dcm
+img = dimg.get_image_magick(:rescale => true).normalize
+
+
+Step 2. Create users
+
+check db to ensure user created
+
+
+Step 3. Submit contour
+upload RTSTRUCT file, check db to see if contouring session is created.
+
+Step 4. Generate masks
+RAILS_ENV='production' rake jobs:work
+
+touch tmp/restart.txt
+
+
+Step 4. Populate metrics and generate report
+
+
+
+
+
