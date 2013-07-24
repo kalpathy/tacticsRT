@@ -1,7 +1,7 @@
 # Be sure to restart your server when you modify this file
 
 # Specifies gem version of Rails to use when vendor/rails is not present
-RAILS_GEM_VERSION = '2.3.16' unless defined? RAILS_GEM_VERSION
+RAILS_GEM_VERSION = '2.3.18' unless defined? RAILS_GEM_VERSION
 
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
@@ -20,13 +20,13 @@ Rails::Initializer.run do |config|
   # config.gem "sqlite3-ruby", :lib => "sqlite3"
   # config.gem "aws-s3", :lib => "aws/s3"
 
-  config.gem "authlogic"
-  config.gem "paperclip"
+  config.gem "authlogic", :version => '2.1.9'
+  config.gem "paperclip", :version => '2.3.3'
   config.gem "rsruby"
   config.gem "narray"
   config.gem 'dicom'
 #  config.gem "gchartrb"
-  require 'google_chart'
+#  require 'google_chart'
   require 'tmpdir'
 
   C3D_CMD="/Users/jayashreekalpathy/Documents/visualization/c3d/c3d-0.8.2-Darwin-i386/bin/c3d"
