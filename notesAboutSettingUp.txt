@@ -1,3 +1,10 @@
+Stemp -1:
+a. Install appropriate version of Rails & gems (see config/environment.rb for which versions to install)
+b. Make sure that rubygems itself is pre-2.0:
+  gem update --system 1.8.25
+  
+  If you're running a version of Ruby > 1.9.3-p350 or so, you'll need to downgrade gems like this or else you'll see the "undefined method source_index" error.
+
 Step 0. Generate nii.gz of dcm files.(using Slicer or dcm2nii or mriconvert) Verify using ITK-SNAP
 
 Step 1. Add Template study:
